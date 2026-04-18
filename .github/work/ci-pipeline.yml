@@ -1,0 +1,27 @@
+name: Python Automated Tests
+
+# Tell the robot to wake up every time you push code
+on: [push]
+
+jobs:
+  test-my-code:
+    runs-on: ubuntu-latest # The robot borrows a temporary Linux server
+
+    steps:
+      # Step 1: Download your code onto the temporary server
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Install Python on that server
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Step 3: Install the testing library (pytest)
+      - name: Install dependencies
+        run: pip install pytest
+
+      # Step 4: Run the test!
+      - name: Run Pytest
+        run: pytest test_math_app.py
